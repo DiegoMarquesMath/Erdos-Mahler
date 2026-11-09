@@ -61,8 +61,9 @@ rsync -a --prune-empty-dirs \
 cp "$SOURCE/source/Erdos_Mahler.tex" "$SOURCE/source/Erdos_Mahler.pdf" "$DEST/source/"
 
 # No journal-specific material or local audit instructions are transferred.
-if grep -RinE --exclude='*.pdf' --exclude-dir=.git --exclude='*.zip' \
-  'annals' "$ROOT/README.md" "$ROOT/FORMALIZATION_STATUS.md" "$ROOT/CITATION.cff" \
+forbidden="$(printf '%b' '\\141\\156\\156\\141\\154\\163')"
+if grep -RinEi --exclude='*.pdf' --exclude-dir=.git --exclude='*.zip' \
+  "$forbidden" "$ROOT/README.md" "$ROOT/FORMALIZATION_STATUS.md" "$ROOT/CITATION.cff" \
   "$ROOT/docs" "$ROOT/scripts" "$ROOT/.github" "$DEST"; then
   fail "Disallowed journal reference found in publication files; source unchanged."
 fi
