@@ -47,7 +47,7 @@ These claims are grounded in the submitted local verification reports and theore
 | Target | Current status |
 | --- | --- |
 | Full all-arcs version of the rotation estimate | Open; specialized interval theorem completed locally |
-| Small-exceptional-denominator counting | Not yet formalized |
+| Small-exceptional-denominator counting (Lemma 3.1; Gate 04) | **In progress** — no verified Lean statement yet |
 | Sublinear height bound from the $p$-adic Subspace Theorem | Not yet formalized |
 | Product-transfer and product-cardinality arguments | Not yet formalized |
 | Rational-power classes, Matveev, and combinatorial bounds | Not yet formalized |
