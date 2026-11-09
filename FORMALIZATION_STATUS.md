@@ -33,6 +33,7 @@ The main theorem states the existence, for each $\tau\ge4$, of a Cantor set of i
 | Gate 05 | Canonical arithmetic normalization, local product, height lower bound, and fixed-exponent logarithmic escape; 66 additional theorems and 15 definitions | The precise finite-primitive-pairs consequence `SubspaceTwoThreePrimitive` of the p-adic Subspace Theorem is an explicit, undischarged theorem parameter |
 | Gate 06 | Products of exceptional fractions (Lemma 3.3): exact finite rational witnesses, multiplicity `|A(w)| ≤ 4|X|`, and product bound `|XX| ≤ 4N`; 31 additional theorems and 7 definitions | None for the two finite product inequalities |
 | Gate 07 | Classes modulo rational powers (Lemma 3.4): abstract bound `#(A mod 2^k G) ≤ (|A+A|/|A|)^(3k)` and actual positive-rational bound `#classes(X) ≤ (4N/|X|)^(3k)`; 33 proved theorems, 7 definitions, 2 type abbreviations | None for the final class-count theorems |
+| Gate 08 | Size of a class (Lemma 3.5): ratio rigidity, exact index gap, and `#(X ∩ class) ≤ 13w` for the least `2^k ≥ log(N/w)^2`; 50 theorems, 11 definitions | `Gate08.MatveevRationalThree`, an explicitly typed weighted 3-logarithm theorem not proved in Lean |
 
 **Gate 03 removes the rotation and unboundedness hypotheses from the successor theorem.** In the local development, the central declaration is
 
@@ -48,7 +49,9 @@ Gate 05 verifies the deduction of the following statements from the ordinary par
 
 Gate 06 establishes the two exact finite-set inequalities `|A(w)| ≤ 4|X|` and `|XX| ≤ 4N` without an external mathematical premise. Rational-product separation and the ceiling two-value restriction are verified in its supporting modules. This result does not establish the Matveev estimate or the final counting proposition.
 
-Gate 07 proves the exact quotient by `2^k` multiples, distinguishes finite-set dilation from iterated sumsets, and uses the pinned Mathlib Plünnecke–Ruzsa and Ruzsa triangle inequalities. The associated positive-rational quotient is the actual group `ℚ_{>0}^×`, and the finite-set specialization uses Gate 06's selected fractions and product estimate, rather than an assumed product bound. This is an unconditional local deduction at the lemma's scope. The Matveev class-size lemma remains open.
+Gate 07 proves the exact quotient by `2^k` multiples, distinguishes finite-set dilation from iterated sumsets, and uses the pinned Mathlib Plünnecke–Ruzsa and Ruzsa triangle inequalities. The associated positive-rational quotient is the actual group `ℚ_{>0}^×`, and the finite-set specialization uses Gate 06's selected fractions and product estimate, rather than an assumed product bound. This is an unconditional local deduction at the lemma's scope. The next local deduction is the combination of class-count and class-size bounds.
+
+Gate 08 proves a class-size bound with the explicit absolute constant `13` and an absolute threshold of the form `100(C₀+1)`, where the constant `C₀` comes from the exact **weighted** Matveev contract. The hypothesis `MatveevRationalThree` is an ordinary, undischarged theorem parameter. The real-height and 3-adic valuation bridges, minimum power `q=2^k≥x²`, and injective choice of representatives are part of the checked local derivation. Neither this external theorem nor the separate Gate 05 Subspace Theorem has been formally established.
 
 These claims are grounded in the submitted local verification reports and theorem-type output. **The proof source files are not yet present in this remote repository and these builds have not been independently reproduced on GitHub.**
 
@@ -61,7 +64,8 @@ These claims are grounded in the submitted local verification reports and theore
 | Sublinear height bound from the $p$-adic Subspace Theorem (Gate 05) | **Verified locally, conditional** on the explicit external contract; remote CI pending |
 | Product-transfer and product-cardinality arguments (Gate 06) | **Verified locally** — both final inequalities; repository CI pending |
 | Classes modulo rational powers (Lemma 3.4; Gate 07) | **Verified locally** — abstract and concrete rational-power bounds; repository CI pending |
-| Matveev and size of power classes (Lemma 3.5; Gate 08) | **In progress** — weighted Matveev must be a precisely typed, explicitly undischarged external parameter |
+| Matveev and size of power classes (Lemma 3.5; Gate 08) | **Verified locally, conditional** on `MatveevRationalThree`; repository CI pending |
+| Single-band large-denominator count (Lemma 3.6; Gate 09) | **In progress** — combines Gates 06–08 with no extra external mathematical premise |
 | Summation over logarithmic denominator ranges | Not yet formalized |
 | Proposition 2.1 with one absolute constant | Not yet formalized |
 | Nested intervals, Cantor embedding and $\mu(\xi)=\tau$ | Not yet formalized |
@@ -79,6 +83,7 @@ The local reports specify:
 - Gate 05: `lake build` completed (4,520 jobs); `Gate05Checks.lean` completed without errors. Its main quantitative theorems depend on the ordinary, explicitly typed parameter `SubspaceTwoThreePrimitive`, not on a newly declared axiom.
 - Gate 06: `lake build` completed (4,534 jobs); `Gate06Checks.lean` completed without errors. The final product and multiplicity theorems have no external mathematical hypotheses.
 - Gate 07: after `lake clean ErdosMahlerAudit`, `lake build` completed (4,548 jobs); `Gate07Checks.lean` completed without errors. Both the abstract theorem `Gate07.power_class_bound` and its concrete positive-rational corollary `Gate07.selected_fractions_power_class_bound` have no new mathematical hypotheses.
+- Gate 08: `lake build` completed (7,196 jobs); `Gate08Checks.lean` completed without errors. Three final theorems `Gate08.same_class_ratio_rigidity`, `Gate08.same_class_index_gap`, and `Gate08.selected_class_card_le` were checked under the explicit ordinary Matveev parameter. No clean-build claim is made for this incremental build.
 - Only the usual kernel axiom dependencies `propext`, `Classical.choice`, and `Quot.sound` were reported for the new theorem declarations.
 
 Frozen manuscript hashes (recorded from the local project, pending repository reproduction):
