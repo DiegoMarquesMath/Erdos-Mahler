@@ -35,6 +35,7 @@ The main theorem states the existence, for each $\tau\ge4$, of a Cantor set of i
 | Gate 07 | Classes modulo rational powers (Lemma 3.4): abstract bound `#(A mod 2^k G) ≤ (|A+A|/|A|)^(3k)` and actual positive-rational bound `#classes(X) ≤ (4N/|X|)^(3k)`; 33 proved theorems, 7 definitions, 2 type abbreviations | None for the final class-count theorems |
 | Gate 08 | Size of a class (Lemma 3.5): ratio rigidity, exact index gap, and `#(X ∩ class) ≤ 13w` for the least `2^k ≥ log(N/w)^2`; 50 theorems, 11 definitions | `Gate08.MatveevRationalThree`, an explicitly typed weighted 3-logarithm theorem not proved in Lean |
 | Gate 09 | Count in a denominator range (Lemma 3.6): actual band satisfies `#A(w)/N ≤ 16 exp(−x/(52 log(2+x)))`, `x=log(N/w)` above a common absolute threshold; 13 theorems | Only the explicit `Gate08.MatveevRationalThree` parameter inherited from Gate 08 |
+| Gate 10 | Global summation, tail control, Proposition 2.1 with absolute `C=60` and actual two-successor corollary; 33 proved theorems and 3 transparent definitions | Exactly `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree` as explicit undischarged ordinary parameters |
 
 **Gate 03 removes the rotation and unboundedness hypotheses from the successor theorem.** In the local development, the central declaration is
 
@@ -54,7 +55,7 @@ Gate 07 proves the exact quotient by `2^k` multiples, distinguishes finite-set d
 
 Gate 08 proves a class-size bound with the explicit absolute constant `13` and an absolute threshold of the form `100(C₀+1)`, where the constant `C₀` comes from the exact **weighted** Matveev contract. The hypothesis `MatveevRationalThree` is an ordinary, undischarged theorem parameter. The real-height and 3-adic valuation bridges, minimum power `q=2^k≥x²`, and injective choice of representatives are part of the checked local derivation. Neither this external theorem nor the separate Gate 05 Subspace Theorem has been formally established.
 
-Gate 09 proves the one-band estimate from the actual finite exceptional set with explicit constants `c=1/52` and `C=16`, above the threshold `100(C₀+1)`. The proof includes the empty-set case, the exact exponent `3k+1`, and the necessary logarithmic comparison; it uses no new mathematical premise. **This does not establish the global summation or Proposition 2.1.**
+Gate 09 proves the one-band estimate from the actual finite exceptional set with explicit constants `c=1/52` and `C=16`, above the threshold `100(C₀+1)`. The proof includes the empty-set case, the exact exponent `3k+1`, and the necessary logarithmic comparison. Gate 10 then proves the global summation using a genuinely summable majorant, the exact half-open height partition, eventually large active indices from Gate 05 and the finite-set tail Cauchy criterion. The resulting Proposition 2.1 has **one absolute coefficient `C=60` fixed before all exponent, denominator and tolerance parameters**. The optional `Gate10.two_successors` corollary supplies the two distinct admissible indices for each sufficiently large parent, including `τ=4`. These are **local conditional proofs** under the two identified external results, not a verification of the main theorem or a GitHub CI certificate.
 
 These claims are grounded in the submitted local verification reports and theorem-type output. **The proof source files are not yet present in this remote repository and these builds have not been independently reproduced on GitHub.**
 
@@ -69,9 +70,10 @@ These claims are grounded in the submitted local verification reports and theore
 | Classes modulo rational powers (Lemma 3.4; Gate 07) | **Verified locally** — abstract and concrete rational-power bounds; repository CI pending |
 | Matveev and size of power classes (Lemma 3.5; Gate 08) | **Verified locally, conditional** on `MatveevRationalThree`; repository CI pending |
 | Single-band large-denominator count (Lemma 3.6; Gate 09) | **Verified locally, conditional** on weighted Matveev; repository CI pending |
-| Summation over logarithmic denominator ranges (Gate 10) | **In progress** — combine the height input and summable series, prove Proposition 2.1 with an absolute leading constant |
-| Proposition 2.1 with one absolute constant | Not yet formalized |
-| Nested intervals, Cantor embedding and $\mu(\xi)=\tau$ | Not yet formalized |
+| Summation over logarithmic denominator ranges (Gate 10) | **Verified locally, conditional** on the two explicit external results; repository CI pending |
+| Proposition 2.1 with one absolute constant | **Verified locally, conditional**; exact `Gate10.proposition_2_1` has `C=60` chosen before `ν,D,η` |
+| Nested intervals and disjoint successors (Gate 11) | **Next** — requires exact geometric bridges from `Gate10.two_successors` |
+| Cantor embedding, irrationality, regular convergents and $\mu(\xi)=\tau$ | Not yet formalized |
 
 External published inputs (including Subspace Theorem, weighted Matveev and Plünnecke–Ruzsa) must be checked against their precise hypotheses. If they are not imported from verified formal libraries or proved in Lean, they must remain plainly visible as assumptions.
 
@@ -88,6 +90,7 @@ The local reports specify:
 - Gate 07: after `lake clean ErdosMahlerAudit`, `lake build` completed (4,548 jobs); `Gate07Checks.lean` completed without errors. Both the abstract theorem `Gate07.power_class_bound` and its concrete positive-rational corollary `Gate07.selected_fractions_power_class_bound` have no new mathematical hypotheses.
 - Gate 08: `lake build` completed (7,196 jobs); `Gate08Checks.lean` completed without errors. Three final theorems `Gate08.same_class_ratio_rigidity`, `Gate08.same_class_index_gap`, and `Gate08.selected_class_card_le` were checked under the explicit ordinary Matveev parameter. No clean-build claim is made for this incremental build.
 - Gate 09: `lake build` completed (7,204 jobs); `Gate09Checks.lean` completed without errors. The final `Gate09.denominator_range_bound` retains the one visible ordinary parameter `MatveevRationalThree`. This was an incremental local build.
+- Gate 10: `lake build` completed (7,222 jobs); `Gate10Checks.lean` completed without errors. The results `Gate10.large_denominator_negligible`, `Gate10.proposition_2_1` and `Gate10.two_successors` were checked in the local report. Their types retain exactly the two undischarged ordinary parameters `SubspaceTwoThreePrimitive` and `MatveevRationalThree`.
 - Only the usual kernel axiom dependencies `propext`, `Classical.choice`, and `Quot.sound` were reported for the new theorem declarations.
 
 Frozen manuscript hashes (recorded from the local project, pending repository reproduction):
@@ -107,4 +110,4 @@ The source tree will be published under `formalization/ErdosMahlerAudit/`, retai
 4. Check the pinned dependencies and source-file hashes before finalizing any release.
 5. Keep conditional proofs visibly conditional, and distinguish local evidence from independent repository reproduction.
 
-A complete formal certification of Proposition 2.1 and of the counterexample theorem is **not yet claimed**.
+A conditional local formalization of Proposition 2.1 is reported complete. An unconditional certification, an independent GitHub CI build, and any formal certification of the final counterexample theorem are **not yet claimed**.
