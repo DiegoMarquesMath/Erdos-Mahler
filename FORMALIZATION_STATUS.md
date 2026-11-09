@@ -32,6 +32,7 @@ The main theorem states the existence, for each $\tau\ge4$, of a Cantor set of i
 | Gate 04 | Small-denominator estimate (Lemma 3.1), with an explicit absolute constant `C = 60`; 37 additional theorems and 9 definitions | None for Lemma 3.1 |
 | Gate 05 | Canonical arithmetic normalization, local product, height lower bound, and fixed-exponent logarithmic escape; 66 additional theorems and 15 definitions | The precise finite-primitive-pairs consequence `SubspaceTwoThreePrimitive` of the p-adic Subspace Theorem is an explicit, undischarged theorem parameter |
 | Gate 06 | Products of exceptional fractions (Lemma 3.3): exact finite rational witnesses, multiplicity `|A(w)| ≤ 4|X|`, and product bound `|XX| ≤ 4N`; 31 additional theorems and 7 definitions | None for the two finite product inequalities |
+| Gate 07 | Classes modulo rational powers (Lemma 3.4): abstract bound `#(A mod 2^k G) ≤ (|A+A|/|A|)^(3k)` and actual positive-rational bound `#classes(X) ≤ (4N/|X|)^(3k)`; 33 proved theorems, 7 definitions, 2 type abbreviations | None for the final class-count theorems |
 
 **Gate 03 removes the rotation and unboundedness hypotheses from the successor theorem.** In the local development, the central declaration is
 
@@ -45,7 +46,9 @@ The specialized open-real-interval rotation bound, sufficient for the intervals 
 
 Gate 05 verifies the deduction of the following statements from the ordinary parameter `hST : Gate05.SubspaceTwoThreePrimitive`: for each $\varepsilon>0$, all sufficiently large indices and all reduced rational witnesses in $[1,2]$ satisfy $|R(b)-u/v|\ge 3^{-\varepsilon b}v^{-2}$; for each fixed $4<\nu\le5$, the exact finite-maximum logarithmic height $W_N(\nu)$ satisfies $W_N(\nu)/N\to0$ along $\mathcal D$. The external primitive-pair finiteness proposition is **not proved in Lean**. The reported proof of $W_N=0$ means that every exceptional witness has denominator $1$, not that no exceptional witness exists. In particular, `Exceptional 5 5 1` is checked.
 
-Gate 06 establishes the two exact finite-set inequalities `|A(w)| ≤ 4|X|` and `|XX| ≤ 4N` without an external mathematical premise. Rational-product separation and the ceiling two-value restriction are verified in its supporting modules. This result does not establish the later rational-power-class count, Matveev estimate, or the final counting proposition.
+Gate 06 establishes the two exact finite-set inequalities `|A(w)| ≤ 4|X|` and `|XX| ≤ 4N` without an external mathematical premise. Rational-product separation and the ceiling two-value restriction are verified in its supporting modules. This result does not establish the Matveev estimate or the final counting proposition.
+
+Gate 07 proves the exact quotient by `2^k` multiples, distinguishes finite-set dilation from iterated sumsets, and uses the pinned Mathlib Plünnecke–Ruzsa and Ruzsa triangle inequalities. The associated positive-rational quotient is the actual group `ℚ_{>0}^×`, and the finite-set specialization uses Gate 06's selected fractions and product estimate, rather than an assumed product bound. This is an unconditional local deduction at the lemma's scope. The Matveev class-size lemma remains open.
 
 These claims are grounded in the submitted local verification reports and theorem-type output. **The proof source files are not yet present in this remote repository and these builds have not been independently reproduced on GitHub.**
 
@@ -57,8 +60,8 @@ These claims are grounded in the submitted local verification reports and theore
 | Small-exceptional-denominator counting (Lemma 3.1; Gate 04) | **Verified locally** — exact theorem with `C = 60`; repository CI pending |
 | Sublinear height bound from the $p$-adic Subspace Theorem (Gate 05) | **Verified locally, conditional** on the explicit external contract; remote CI pending |
 | Product-transfer and product-cardinality arguments (Gate 06) | **Verified locally** — both final inequalities; repository CI pending |
-| Classes modulo rational powers (Lemma 3.4; Gate 07) | **In progress** — check pinned Mathlib Plünnecke–Ruzsa and Ruzsa triangle theorems first |
-| Matveev and size of power classes (Lemma 3.5) | Not yet formalized |
+| Classes modulo rational powers (Lemma 3.4; Gate 07) | **Verified locally** — abstract and concrete rational-power bounds; repository CI pending |
+| Matveev and size of power classes (Lemma 3.5; Gate 08) | **In progress** — weighted Matveev must be a precisely typed, explicitly undischarged external parameter |
 | Summation over logarithmic denominator ranges | Not yet formalized |
 | Proposition 2.1 with one absolute constant | Not yet formalized |
 | Nested intervals, Cantor embedding and $\mu(\xi)=\tau$ | Not yet formalized |
@@ -75,6 +78,7 @@ The local reports specify:
 - Gate 04: `lake build` completed (4,492 jobs); `Gate04Checks.lean` completed without errors. The final theorem `Gate04.small_denominator_absolute` has no additional mathematical hypotheses and provides `C=60`.
 - Gate 05: `lake build` completed (4,520 jobs); `Gate05Checks.lean` completed without errors. Its main quantitative theorems depend on the ordinary, explicitly typed parameter `SubspaceTwoThreePrimitive`, not on a newly declared axiom.
 - Gate 06: `lake build` completed (4,534 jobs); `Gate06Checks.lean` completed without errors. The final product and multiplicity theorems have no external mathematical hypotheses.
+- Gate 07: after `lake clean ErdosMahlerAudit`, `lake build` completed (4,548 jobs); `Gate07Checks.lean` completed without errors. Both the abstract theorem `Gate07.power_class_bound` and its concrete positive-rational corollary `Gate07.selected_fractions_power_class_bound` have no new mathematical hypotheses.
 - Only the usual kernel axiom dependencies `propext`, `Classical.choice`, and `Quot.sound` were reported for the new theorem declarations.
 
 Frozen manuscript hashes (recorded from the local project, pending repository reproduction):
