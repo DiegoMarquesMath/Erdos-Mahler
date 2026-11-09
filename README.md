@@ -43,12 +43,13 @@ The proof combines distribution of irrational rotations, the $p$-adic Subspace T
 | Rotation discrepancy for the intervals used in the construction | **Verified locally** |
 | Small-denominator bound (Lemma 3.1; absolute constant 60) | **Verified locally** |
 | Height bound and logarithmic escape (Lemma 3.2) | **Verified locally, conditional on the Subspace Theorem** |
-| Products of exceptional rational approximants | In progress |
+| Products of exceptional rational approximants (Lemma 3.3) | **Verified locally** |
+| Classes modulo rational powers (Lemma 3.4) | In progress |
 | Full rotation lemma for arbitrary circle arcs | Not yet formalized in full |
 | Proposition 2.1 | Not yet formalized |
 | Cantor construction and exact irrationality exponent | Not yet formalized |
 
-The completed local developments comprise Gates 01–05. *Verified locally* refers to successful Lean builds and declaration audits documented in their reports; the proof sources have **not yet been uploaded to this repository or reproduced by its CI**. No part of the central counting proposition or final Cantor-set theorem is represented here as kernel-verified.
+The completed local developments comprise Gates 01–06. *Verified locally* refers to successful Lean builds and declaration audits documented in their reports; the proof sources have **not yet been uploaded to this repository or reproduced by its CI**. No part of the central counting proposition or final Cantor-set theorem is represented here as kernel-verified.
 
 The [formalization status](FORMALIZATION_STATUS.md) records the precise established statements, remaining mathematical inputs, and the relationship between local verification and repository verification. The table above will be updated only after checking the relevant theorem types and builds.
 
