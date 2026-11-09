@@ -77,7 +77,7 @@ if git -C "$ROOT" diff --cached --quiet; then
   exit 0
 fi
 
-git -C "$ROOT" commit -m "formalization: import locally checked Gates 01-03 with pinned dependencies"
+git -C "$ROOT" commit -m "formalization: import current locally checked Lean sources with pinned dependencies"
 git -C "$ROOT" push origin main
 
 printf 'Lean source published. Check the GitHub Actions workflow for independent build results.\n'
