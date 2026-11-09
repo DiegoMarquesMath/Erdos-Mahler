@@ -1,0 +1,67 @@
+name: Lean formal verification
+
+on:
+  push:
+    paths:
+      - "formalization/**"
+  pull_request:
+    paths:
+      - "formalization/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Pinned kernel build and axiom audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check project and dependency files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s formalization/ErdosMahlerAudit/lean-toolchain
+          test -s formalization/ErdosMahlerAudit/lakefile.toml
+          test -s formalization/ErdosMahlerAudit/lake-manifest.json
+          test -s formalization/ErdosMahlerAudit/ErdosMahlerAudit.lean
+
+      - name: Build with Lean and mathlib
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formalization/ErdosMahlerAudit
+          auto-config: false
+          build: true
+          use-mathlib-cache: true
+          axiom-audit: true
+          axiom-audit-root: ErdosMahlerAudit
+          axiom-audit-allow: propext,Classical.choice,Quot.sound
+
+      - name: Check elaborated declarations
+        shell: bash
+        working-directory: formalization/ErdosMahlerAudit
+        run: |
+          set -euo pipefail
+          for gate in Gate01Checks Gate02Checks Gate03Checks; do
+            f="ErdosMahlerAudit/${gate}.lean"
+            test -f "$f"
+            lake env lean "$f"
+          done
+
+      - name: Verify frozen manuscript copies
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="formalization/ErdosMahlerAudit/source"
+          printf '%s  %s\n' \
+            "5a55f32babc285ed9ad05fcb3bd6f8fe2bd3080d9eca7fd11e79ba23f7307116" "$base/Erdos_Mahler.tex" \
+            "9d9558f33236b6c1d7b276876153bf3d87f6fac2019c6e39db4d988e5022927f" "$base/Erdos_Mahler.pdf" |
+              sha256sum --check --status
+          echo "Frozen manuscript versions verified."
