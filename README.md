@@ -47,12 +47,14 @@ The proof combines distribution of irrational rotations, the $p$-adic Subspace T
 | Classes modulo rational powers (Lemma 3.4) | **Verified locally** |
 | Size of a power class (Lemma 3.5) | **Verified locally, conditional on weighted Matveev** |
 | Count in a denominator range (Lemma 3.6) | **Verified locally, conditional on weighted Matveev** |
-| Global summation and Proposition 2.1 | In progress |
+| Global summation and Proposition 2.1 (Gate 10; C=60) | **Verified locally, conditional on Subspace Theorem and Matveev** |
+| Successor selection from Proposition 2.1 | **Verified locally, under the same external inputs** |
+| Nested interval construction (Gate 11) | In progress |
 | Full rotation lemma for arbitrary circle arcs | Not yet formalized in full |
-| Proposition 2.1 | Not yet formalized |
+| Proposition 2.1 | **Verified locally, conditional on two external mathematical results** |
 | Cantor construction and exact irrationality exponent | Not yet formalized |
 
-The completed local developments comprise Gates 01–09. *Verified locally* refers to successful Lean builds and declaration audits documented in their reports; the proof sources have **not yet been uploaded to this repository or reproduced by its CI**. No part of the central counting proposition or final Cantor-set theorem is represented here as kernel-verified.
+The completed local developments comprise Gates 01–10. *Verified locally* refers to successful Lean builds and declaration audits documented in their reports; the proof sources have **not yet been uploaded to this repository or reproduced by its CI**. The counting proposition is locally verified **as an implication from two explicit external hypotheses**, not independently certified by repository CI. The final Cantor-set theorem remains unformalized.
 
 The [formalization status](FORMALIZATION_STATUS.md) records the precise established statements, remaining mathematical inputs, and the relationship between local verification and repository verification. The table above will be updated only after checking the relevant theorem types and builds.
 
