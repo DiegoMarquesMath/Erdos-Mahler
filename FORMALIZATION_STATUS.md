@@ -30,6 +30,7 @@ The main theorem states the existence, for each $\tau\ge4$, of a Cantor set of i
 | Gate 02 | Exact finite index sets, admissibility, density bounds, and the two-successor deduction; 28 additional theorems | Counting estimate; rotation discrepancy; unbounded convergent denominators for actual successor selection |
 | Gate 03 | Unboundedness of actual convergent denominators, approximation by convergents, open-interval discrepancy with constant 6, and successors; 26 additional theorems | Counting estimate for the final successor theorem |
 | Gate 04 | Small-denominator estimate (Lemma 3.1), with an explicit absolute constant `C = 60`; 37 additional theorems and 9 definitions | None for Lemma 3.1 |
+| Gate 05 | Canonical arithmetic normalization, local product, height lower bound, and fixed-exponent logarithmic escape; 66 additional theorems and 15 definitions | The precise finite-primitive-pairs consequence `SubspaceTwoThreePrimitive` of the p-adic Subspace Theorem is an explicit, undischarged theorem parameter |
 
 **Gate 03 removes the rotation and unboundedness hypotheses from the successor theorem.** In the local development, the central declaration is
 
@@ -41,6 +42,8 @@ It has the exact counting proposition as an **explicit theorem argument**. It do
 
 The specialized open-real-interval rotation bound, sufficient for the intervals actually used in the construction, was locally established with discrepancy at most $6$. Gate 04 further establishes the exact small-denominator inequality, using the same rotation machinery for arbitrary rational-witness neighborhoods. The controlling constant is $60$, independent of the exponent and cutoffs. The manuscript's more general statement for arbitrary arcs in $\mathbb R/\mathbb Z$ has not been formalized in full.
 
+Gate 05 verifies the deduction of the following statements from the ordinary parameter `hST : Gate05.SubspaceTwoThreePrimitive`: for each $\varepsilon>0$, all sufficiently large indices and all reduced rational witnesses in $[1,2]$ satisfy $|R(b)-u/v|\ge 3^{-\varepsilon b}v^{-2}$; for each fixed $4<\nu\le5$, the exact finite-maximum logarithmic height $W_N(\nu)$ satisfies $W_N(\nu)/N\to0$ along $\mathcal D$. The external primitive-pair finiteness proposition is **not proved in Lean**. The reported proof of $W_N=0$ means that every exceptional witness has denominator $1$, not that no exceptional witness exists. In particular, `Exceptional 5 5 1` is checked.
+
 These claims are grounded in the submitted local verification reports and theorem-type output. **The proof source files are not yet present in this remote repository and these builds have not been independently reproduced on GitHub.**
 
 ## Remaining mathematical work
@@ -49,8 +52,8 @@ These claims are grounded in the submitted local verification reports and theore
 | --- | --- |
 | Full all-arcs version of the rotation estimate | Open; specialized interval theorem completed locally |
 | Small-exceptional-denominator counting (Lemma 3.1; Gate 04) | **Verified locally** — exact theorem with `C = 60`; repository CI pending |
-| Sublinear height bound from the $p$-adic Subspace Theorem (Gate 05) | **Next** — requires explicitly typed external theorem contract |
-| Product-transfer and product-cardinality arguments | Not yet formalized |
+| Sublinear height bound from the $p$-adic Subspace Theorem (Gate 05) | **Verified locally, conditional** on the explicit external contract; remote CI pending |
+| Product-transfer and product-cardinality arguments (Gate 06) | In progress; no local verified theorem yet |
 | Rational-power classes, Matveev, and combinatorial bounds | Not yet formalized |
 | Summation over logarithmic denominator ranges | Not yet formalized |
 | Proposition 2.1 with one absolute constant | Not yet formalized |
@@ -66,6 +69,7 @@ The local reports specify:
 - mathlib revision: `9d581dfff2e41de989072ea63abf3daf69311520`.
 - Gate 03: `lake build` completed (4,478 jobs); `Gate03Checks.lean` completed without errors.
 - Gate 04: `lake build` completed (4,492 jobs); `Gate04Checks.lean` completed without errors. The final theorem `Gate04.small_denominator_absolute` has no additional mathematical hypotheses and provides `C=60`.
+- Gate 05: `lake build` completed (4,520 jobs); `Gate05Checks.lean` completed without errors. Its main quantitative theorems depend on the ordinary, explicitly typed parameter `SubspaceTwoThreePrimitive`, not on a newly declared axiom.
 - Only the usual kernel axiom dependencies `propext`, `Classical.choice`, and `Quot.sound` were reported for the new theorem declarations.
 
 Frozen manuscript hashes (recorded from the local project, pending repository reproduction):
