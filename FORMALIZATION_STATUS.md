@@ -37,6 +37,7 @@ The main theorem states the existence, for each $\tau\ge4$, of a Cantor set of i
 | Gate 09 | Count in a denominator range (Lemma 3.6): actual band satisfies `#A(w)/N ≤ 16 exp(−x/(52 log(2+x)))`, `x=log(N/w)` above a common absolute threshold; 13 theorems | Only the explicit `Gate08.MatveevRationalThree` parameter inherited from Gate 08 |
 | Gate 10 | Global summation, tail control, Proposition 2.1 with absolute `C=60` and actual two-successor corollary; 33 proved theorems and 3 transparent definitions | Exactly `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree` as explicit undischarged ordinary parameters |
 | Gate 11 | Real closed intervals `K τ t`, ordered admissible successors, strict nesting and disjointness, rational separation, and width contraction by at least a factor of `81`; 23 declarations in the reported local audit | Exactly the same two explicit external parameters; no independent repository CI yet |
+| Gate 12 | One globally coherent `List Bool → ℕ` tree; actual selected admissible successor pairs, sibling disjointness, nested closed intervals, growth of indices, uniform interval-width bound `width(root)/81^depth`; 14 proved theorems, 5 definitions, 3 transparent structures (76 namespace declarations audited locally) | Same two ordinary external parameters; no independent repository CI yet |
 
 **Gate 03 removes the rotation and unboundedness hypotheses from the successor theorem.** In the local development, the central declaration is
 
@@ -74,7 +75,8 @@ These claims are grounded in the submitted local verification reports and theore
 | Summation over logarithmic denominator ranges (Gate 10) | **Verified locally, conditional** on the two explicit external results; repository CI pending |
 | Proposition 2.1 with one absolute constant | **Verified locally, conditional**; exact `Gate10.proposition_2_1` has `C=60` chosen before `ν,D,η` |
 | Nested intervals and disjoint successors (Gate 11) | **Verified locally, conditional** — exact geometric bridges from `Gate10.two_successors`; GitHub CI pending |
-| Binary tree and Cantor embedding (Gate 12 onward) | Not yet formalized; next step is globally coherent recursive successor selection |
+| Coherent binary interval tree (Gate 12) | **Verified locally, conditional** — one fixed selector and root; interval widths at depth `n` at most `width(root)/81^n` |
+| Infinite-chain limits, Cantor embedding, compactness and perfectness (Gate 13) | Not yet formalized |
 | Irrationality, regular convergents and $\mu(\xi)=\tau$ | Not yet formalized |
 
 External published inputs (including Subspace Theorem, weighted Matveev and Plünnecke–Ruzsa) must be checked against their precise hypotheses. If they are not imported from verified formal libraries or proved in Lean, they must remain plainly visible as assumptions.
@@ -94,6 +96,7 @@ The local reports specify:
 - Gate 09: `lake build` completed (7,204 jobs); `Gate09Checks.lean` completed without errors. The final `Gate09.denominator_range_bound` retains the one visible ordinary parameter `MatveevRationalThree`. This was an incremental local build.
 - Gate 10: `lake build` completed (7,222 jobs); `Gate10Checks.lean` completed without errors. The results `Gate10.large_denominator_negligible`, `Gate10.proposition_2_1` and `Gate10.two_successors` were checked in the local report. Their types retain exactly the two undischarged ordinary parameters `SubspaceTwoThreePrimitive` and `MatveevRationalThree`.
 - Gate 11: reported `lake build` completed (7,230 jobs) and direct `Gate11Checks.lean` exited 0. The 23 new declarations passed the recorded stored-body and axiom audits. This is a local conditional result, not a remote or full-main-theorem certificate. The interrupted Gate 11 preflight required a new operational integrity baseline; that replacement does not retrospectively certify byte identity with the original Gate 10 compilation.
+- Gate 12: reported `lake build` completed (7,236 jobs) and direct `Gate12Checks.lean` exited 0. The final declaration `Gate12.binary_tree_of_intervals` has only the two inherited mathematical premises and the bound `4 ≤ τ`; the constructed `TreeSpec` contains real interval nesting and disjointness, actual admissible successors, and depth-wise contraction. The local audit reports 76 Gate 12 namespace declarations checked for unwanted axioms, and an operational Gate 11→12 snapshot preserving all existing sources except the authorized appended root import. This has not been independently reproduced from committed Lean sources.
 - Only the usual kernel axiom dependencies `propext`, `Classical.choice`, and `Quot.sound` were reported for the new theorem declarations.
 
 Frozen manuscript hashes (recorded from the local project, pending repository reproduction):
