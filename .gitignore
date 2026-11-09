@@ -1,0 +1,10 @@
+.lake/
+*.olean
+*.ilean
+*.trace
+*.log
+.DS_Store
+__pycache__/
+*.pyc
+/tmp/
+audit-logs/
