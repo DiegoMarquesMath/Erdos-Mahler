@@ -18,6 +18,7 @@ lake build
 lake env lean ErdosMahlerAudit/Gate01Checks.lean
 lake env lean ErdosMahlerAudit/Gate02Checks.lean
 lake env lean ErdosMahlerAudit/Gate03Checks.lean
+lake env lean ErdosMahlerAudit/Gate11Checks.lean  # once Gate 11 sources are published
 ```
 
 The checks files inspect the elaborated theorem statements and their axiom dependencies. The full theorem types must be read: an ordinary hypothesis does not appear as a kernel axiom.
@@ -26,10 +27,10 @@ The checks files inspect the elaborated theorem statements and their axiom depen
 
 The Lean modules correspond to the version of `Erdos_Mahler.tex` and `Erdos_Mahler.pdf` whose SHA-256 hashes are recorded in [FORMALIZATION_STATUS.md](../FORMALIZATION_STATUS.md).
 
-Proof obligations that are not yet discharged must remain as explicit theorem parameters or open tasks. In particular, a successful build of the current conditional successor theorem is not a formal proof of Proposition 2.1 or of the final Cantor-set theorem.
+Proof obligations that are not yet discharged must remain as explicit theorem parameters or open tasks. In particular, a successful build of the current conditional successor theorem does not discharge its explicit Subspace Theorem and Matveev hypotheses or establish the final Cantor-set theorem.
 
 ## Continuous integration
 
-The [Lean workflow](../.github/workflows/lean.yml) will run on source-tree changes. It checks the pinned project, compiles all imported proof modules, executes the three gate checks, audits foundational axioms, and verifies the frozen manuscript identity.
+The [Lean workflow](../.github/workflows/lean.yml) will run on source-tree changes. It checks the pinned project, compiles all imported proof modules, executes the available gate checks through Gate 11, audits foundational axioms, and verifies the frozen manuscript identity.
 
 A passing workflow establishes that its **committed source files** build with the pinned dependencies. Claims of complete formalization additionally require that the displayed mathematical statements match the manuscript and that no essential unproved hypothesis remains.
