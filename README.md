@@ -1,77 +1,57 @@
-# Erdős–Mahler
+# A counterexample to the Erdős–Mahler conjecture
 
-**Formal verification of *A counterexample to the Erdős–Mahler conjecture***  
-Diego Marques · Universidade de Brasília
+**Diego Marques**  
+Universidade de Brasília
 
-This repository accompanies the manuscript *A counterexample to the Erdős–Mahler conjecture*. Its purpose is to provide a reproducible Lean 4 formalization of the main mathematical arguments, with exact theorem statements, explicit dependencies, and an independently checkable record of progress.
+Lean 4 formalization accompanying the manuscript *A counterexample to the Erdős–Mahler conjecture*.
 
-## Mathematical result
+## The theorem
 
-The manuscript proves that for every real number $\tau\ge4$ there exists a Cantor set $K_\tau\subset(1,2)$ such that each $\xi\in K_\tau$ has irrationality exponent $\mu(\xi)=\tau$ and infinitely many regular continued-fraction convergents of the form $2^a/3^b$.
-
-The central ingredient is a counting estimate. Define
+The manuscript establishes that, for every real number $\tau\geq 4$, there is a Cantor set $K_\tau\subset(1,2)$ such that every $\xi\in K_\tau$ has irrationality exponent $\mu(\xi)=\tau$ and infinitely many regular continued-fraction convergents of the form
 
 $$
-\alpha=\frac{\log3}{\log2},\qquad
+\frac{2^a}{3^b},\qquad a,b\geq 1.
+$$
+
+Thus the occurrence of convergents supported on a fixed finite set of primes does not force an irrational number to be Liouville.
+
+## The counting theorem
+
+Write
+
+$$
+\alpha=\frac{\log 3}{\log 2},\qquad
 R(b)=\frac{2^{\lceil b\alpha\rceil}}{3^b},
 $$
 
-and let $\mathcal D$ be the set of denominators of the regular continued-fraction convergents of $\alpha$. For $4<\nu\le5$, let $E_N(D,\nu)$ count the indices $b\in[N,2N)$ for which some reduced $u/v\in[1,2]$, different from $R(b)$, satisfies
+and let $\mathcal D$ denote the denominators of the regular continued-fraction convergents of $\alpha$. For $4<\nu\leq 5$ and $D\geq 2$, let $E_N(D,\nu)$ count those $b\in[N,2N)$ for which there is a reduced rational $u/v\in[1,2]$, different from $R(b)$, with
 
 $$
 v>D,\qquad
-\left|R(b)-\frac uv\right|<\frac1{16v^\nu}.
+\left|R(b)-\frac uv\right|<\frac{1}{16v^\nu}.
 $$
 
-**Proposition 2.1** asserts that there is an absolute constant $C>0$ such that
+The central estimate (Proposition 2.1) is
 
 $$
 \limsup_{\substack{N\to\infty\\N\in\mathcal D}}
-\frac{E_N(D,\nu)}{N}\le C D^{2-\nu}
-\qquad(4<\nu\le5,\ D\ge2).
+\frac{E_N(D,\nu)}{N}\leq CD^{2-\nu},
 $$
 
-The proof combines distribution of irrational rotations, the $p$-adic Subspace Theorem, product-set estimates, rational-power classes, and lower bounds for linear forms in logarithms.
+where $C$ is absolute. The proof combines irrational rotations, additive and multiplicative estimates, the $p$-adic Subspace Theorem, and lower bounds for linear forms in logarithms.
 
-## Formalization progress
+## Formalization
 
-| Mathematical component | Status |
-| --- | --- |
-| Prescribed fractions and reduced rational arithmetic | **Verified locally** |
-| Finite counting and admissible-choice deduction | **Verified locally, conditional on the counting estimate** |
-| Unbounded convergent denominators | **Verified locally** |
-| Rotation discrepancy for the intervals used in the construction | **Verified locally** |
-| Small-denominator bound (Lemma 3.1; absolute constant 60) | **Verified locally** |
-| Height bound and logarithmic escape (Lemma 3.2) | **Verified locally, conditional on the Subspace Theorem** |
-| Products of exceptional rational approximants (Lemma 3.3) | **Verified locally** |
-| Classes modulo rational powers (Lemma 3.4) | **Verified locally** |
-| Size of a power class (Lemma 3.5) | **Verified locally, conditional on weighted Matveev** |
-| Count in a denominator range (Lemma 3.6) | **Verified locally, conditional on weighted Matveev** |
-| Global summation and Proposition 2.1 (Gate 10; C=60) | **Verified locally, conditional on Subspace Theorem and Matveev** |
-| Successor selection from Proposition 2.1 | **Verified locally, under the same external inputs** |
-| Nested, disjoint successor intervals (Gate 11) | **Verified locally, conditional on Subspace Theorem and Matveev** |
-| Coherent binary tree and uniform interval decay (Gate 12) | **Verified locally, conditional on the same two external results** |
-| Infinite branch limits and Cantor topology (Gate 13) | **Verified locally, conditional on the same two external results** |
-| Irrationality and genuine regular prescribed convergents (Gate 14) | **Verified locally, conditional on the same two external results** |
-| All-rational approximation lower bounds and finite exceptional sets (Gate 15) | **Verified locally, conditional on the same two external results** |
-| Exact extended-real irrationality exponent and integrated main theorem (Gate 16) | **Verified locally, conditional on the same two external results** |
-| Full rotation lemma for arbitrary circle arcs | Not yet formalized in full |
-| Proposition 2.1 | **Verified locally, conditional on two external mathematical results** |
-| Cantor topology (Gate 13) | **Verified locally, conditional on the two external results** |
-| Independent reproduction from committed source and external-theorem discharge | **Pending** |
+The local Lean development covers the counting argument, the construction of a nested binary interval tree, the resulting Cantor set, the continued-fraction assertions, and the exact irrationality exponent. Its concluding declaration is
 
-The completed local developments comprise Gates 01–16. *Verified locally* refers to successful Lean builds and declaration audits documented in their reports; the proof sources have **not yet been uploaded to this repository or reproduced by its CI**. The counting proposition is locally verified **as an implication from two explicit external hypotheses**, not independently certified by repository CI. Gate 11 establishes two strictly nested, pairwise disjoint admissible successor intervals with uniform width contraction. Gate 12 uses those results to construct one coherent tree indexed by finite binary words, with interval widths bounded by the initial width divided by `81^n` at depth `n`. Gate 13 additionally proves unique limits for every infinite binary branch, continuous injective parametrization, a compact perfect nowhere-dense Cantor image in `(1,2)`, and exact strict displacement inequalities for the prescribed fractions. Gate 14 additionally proves irrationality of every branch point and infinitely many **actual regular continued-fraction convergents** with prescribed reduced powers of 2 and 3, achieving every approximation order `0<s<τ`. Gate 15 proves that every sufficiently large canonical rational denominator `v` satisfies `|ξ−u/v| ≥ v^(−τ−δ)` for each branch and `δ>0`, and that every approximation set of order `s>τ` is finite. Gate 16 defines the numeric irrationality exponent as an `ENNReal` supremum of positive approximation orders with infinitely many reduced canonical rationals, proves the upper and lower supremum bridges, and integrates the Cantor and arithmetic certificates in `Gate16.erdos_mahler_main`. The theorem's **two external inputs are still explicit ordinary arguments**, so the main result is verified locally **only as a conditional implication**. No full proof of those external statements or independent CI reproduction is claimed.
+`ErdosMahlerAudit.Gate16.erdos_mahler_main`.
 
-The [formalization status](FORMALIZATION_STATUS.md) records the precise established statements, remaining mathematical inputs, and the relationship between local verification and repository verification. The table above will be updated only after checking the relevant theorem types and builds.
+**The formal theorem is conditional.** Its two ordinary mathematical hypotheses are `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree`. These encode precise consequences of the Subspace Theorem and a weighted three-logarithm estimate; they have not been proved in Lean. The formal conclusion currently quantifies powers with nonnegative integer exponents. A positive-exponent strengthening, matching the manuscript literally, remains to be stated in the public Lean theorem.
 
-## Reproducibility
+The 16 stages have passed the reported local Lean checks. The sources have **not yet been committed to this repository**, and an independent GitHub Actions build has **not yet been obtained**. A successful build will verify the conditional implication, not discharge its two hypotheses.
 
-The development uses Lean 4 and mathlib with pinned dependencies. Once the local Lean sources have been imported, the [CI workflow](.github/workflows/lean.yml) will compile the project, inspect proof dependencies, and check the identity of the manuscript files. Until then, no successful GitHub build is claimed.
-
-The published mathematical theorems used as external inputs must either be formalized or retained as explicit hypotheses in the types of the results that depend on them. Compilation alone does not discharge an ordinary theorem hypothesis.
+For the exact logical boundary, see [Formalization status](FORMALIZATION_STATUS.md). For the pinned build and source identity, see [Reproducibility](docs/REPRODUCIBILITY.md).
 
 ## Citation
 
-Please cite the manuscript for the mathematical results. Once a formally verified release is available, its immutable Git commit or release tag will identify the exact code and dependency versions used for reproducibility.
-
-The repository is maintained as a mathematical research companion, not as a substitute for independent peer review.
+For mathematical results, cite the accompanying manuscript. For the formal development, cite a fixed repository revision after its sources have been published and independently reproduced.
