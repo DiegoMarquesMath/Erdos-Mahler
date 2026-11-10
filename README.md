@@ -42,16 +42,16 @@ where $C$ is absolute. The proof combines irrational rotations, additive and mul
 
 ## Formalization
 
-The local Lean development covers the counting argument, the construction of a nested binary interval tree, the resulting Cantor set, the continued-fraction assertions, and the exact irrationality exponent. Its concluding declaration is
+The Lean development covers the counting argument, the construction of a nested binary interval tree, the resulting Cantor set, the continued-fraction assertions, and the exact irrationality exponent. Its concluding declaration is
 
 `ErdosMahlerAudit.Gate16.erdos_mahler_main`.
 
 The formalization uses two established results in Diophantine approximation: Schlickewei's $p$-adic Subspace Theorem and Matveev's lower bound for linear forms in logarithms. Their exact specializations are justified in [External theorems](docs/EXTERNAL_THEOREMS.md). Since the original proofs of these classical results are not formalized in Lean, they appear as explicit premises in the concluding declaration. The precise scope of that declaration is recorded in [Formalization status](FORMALIZATION_STATUS.md).
 
-The 16 stages have passed the reported local Lean checks. The sources have **not yet been committed to this repository**, and an independent GitHub Actions build has **not yet been obtained**. Such a build will establish reproducibility of the formal deduction; the classical results remain outside the Lean development.
+The complete sources are published under [`formalization/ErdosMahlerAudit`](formalization/ErdosMahlerAudit). The pinned development passed its [independent GitHub Actions verification](https://github.com/DiegoMarquesMath/Erdos-Mahler/actions/runs/42761925776) at commit [`cb25517`](https://github.com/DiegoMarquesMath/Erdos-Mahler/commit/cb2551739d9e7d3e12ff0d16b8f3e182929f66bf).
 
 For the exact logical boundary, see [Formalization status](FORMALIZATION_STATUS.md). For the pinned build and source identity, see [Reproducibility](docs/REPRODUCIBILITY.md).
 
 ## Citation
 
-For mathematical results, cite the accompanying manuscript. For the formal development, cite a fixed repository revision after its sources have been published and independently reproduced.
+For mathematical results, cite the accompanying manuscript. For the formal development, cite the verified repository revision and its pinned dependencies.
