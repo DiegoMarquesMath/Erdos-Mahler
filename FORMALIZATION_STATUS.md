@@ -45,8 +45,8 @@ Neither proposition is asserted as an axiom of Lean. Both are **explicit assumpt
 
 ## Verification boundary
 
-The reports from the author's local development record successful `lake build` and `Gate16Checks.lean` executions with the pinned toolchain. They also report source-preservation checks, stored proof bodies, and inspection of 682 project declarations reachable through the final theorem. These are records of a **local conditional formalization**, not certificates issued by an independent build.
+The local reports record successful `lake build` and `Gate16Checks.lean` executions, source-integrity checks, stored proof bodies, and a traversal of 682 project declarations reachable through the final theorem. The complete published sources have also passed an [independent pinned GitHub Actions build and declaration audit](https://github.com/DiegoMarquesMath/Erdos-Mahler/actions/runs/42761925776) at commit [`cb25517`](https://github.com/DiegoMarquesMath/Erdos-Mahler/commit/cb2551739d9e7d3e12ff0d16b8f3e182929f66bf). This reproduces the deduction under the two explicitly stated classical theorem premises.
 
-At the time of this update, no Lean sources have been committed to the remote repository, and GitHub Actions has not reproduced the development. The canonical final Lean statement allows integer exponents $A,B\in\mathbb N$; the manuscript specifies positive exponents, for which a literal public corollary is still desirable.
+The canonical final Lean statement allows integer exponents $A,B\in\mathbb N$; the manuscript specifies positive exponents, for which a literal public corollary is still desirable.
 
-The remaining certification work is to publish and reproduce the exact sources, inspect their correspondence with the frozen manuscript, and—if a fully kernel-closed theorem is desired—formalize the two external mathematical inputs. None of those steps should be conflated with proving the conditional implication.
+Remaining work concerns the positive-exponent corollary, any further source-to-manuscript audit, and—if a fully kernel-closed theorem is desired—formal proofs of the two external classical results. These are distinct from the successful reproduction of the stated Lean implication.
