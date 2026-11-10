@@ -46,9 +46,9 @@ The local Lean development covers the counting argument, the construction of a n
 
 `ErdosMahlerAudit.Gate16.erdos_mahler_main`.
 
-**The formal theorem is conditional.** Its two ordinary mathematical hypotheses are `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree`. These are mathematically derived from the published theorems of Schlickewei and Matveev in [External theorems](docs/EXTERNAL_THEOREMS.md); the reductions are documented, not proved in Lean. The formal conclusion currently quantifies powers with nonnegative integer exponents. A positive-exponent strengthening, matching the manuscript literally, remains to be stated in the public Lean theorem.
+The formalization uses two established results in Diophantine approximation: Schlickewei's $p$-adic Subspace Theorem and Matveev's lower bound for linear forms in logarithms. Their exact specializations are justified in [External theorems](docs/EXTERNAL_THEOREMS.md). Since the original proofs of these classical results are not formalized in Lean, they appear as explicit premises in the concluding declaration. The precise scope of that declaration is recorded in [Formalization status](FORMALIZATION_STATUS.md).
 
-The 16 stages have passed the reported local Lean checks. The sources have **not yet been committed to this repository**, and an independent GitHub Actions build has **not yet been obtained**. A successful build will verify the conditional implication, not discharge its two hypotheses.
+The 16 stages have passed the reported local Lean checks. The sources have **not yet been committed to this repository**, and an independent GitHub Actions build has **not yet been obtained**. Such a build will establish reproducibility of the formal deduction; the classical results remain outside the Lean development.
 
 For the exact logical boundary, see [Formalization status](FORMALIZATION_STATUS.md). For the pinned build and source identity, see [Reproducibility](docs/REPRODUCIBILITY.md).
 
