@@ -41,7 +41,7 @@ The final theorem begins with precisely these two ordinary propositions:
    B=\max\left\{1,\frac{|m_1|A_1}{A_3},\frac{|m_2|A_2}{A_3},|m_3|\right\}.
    $$
 
-Neither proposition is asserted as an axiom of Lean. Both are **explicit assumptions in the type of the concluding theorem**. Their precise deduction from published results still requires an independent mathematical audit or a formal proof. An axiom audit listing only `propext`, `Classical.choice`, and `Quot.sound` does not discharge ordinary theorem parameters.
+Neither proposition is asserted as an axiom of Lean. Both are **explicit assumptions in the type of the concluding theorem**. Their mathematical deductions from Schlickewei's and Matveev's original published statements are detailed in [External theorems](docs/EXTERNAL_THEOREMS.md), including the normalizations and the weighted parameter. These deductions have not been implemented as Lean proof terms. An axiom audit listing only `propext`, `Classical.choice`, and `Quot.sound` does not discharge ordinary theorem parameters.
 
 ## Verification boundary
 
@@ -49,4 +49,4 @@ The reports from the author's local development record successful `lake build` a
 
 At the time of this update, no Lean sources have been committed to the remote repository, and GitHub Actions has not reproduced the development. The canonical final Lean statement allows integer exponents $A,B\in\mathbb N$; the manuscript specifies positive exponents, for which a literal public corollary is still desirable.
 
-The remaining certification work is to publish and reproduce the exact sources, inspect their correspondence with the frozen manuscript, and justify or formalize the two external mathematical inputs. None of those steps should be conflated with proving the conditional implication.
+The remaining certification work is to publish and reproduce the exact sources, inspect their correspondence with the frozen manuscript, and—if a fully kernel-closed theorem is desired—formalize the two external mathematical inputs. None of those steps should be conflated with proving the conditional implication.
