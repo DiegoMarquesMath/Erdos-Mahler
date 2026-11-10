@@ -90,6 +90,9 @@ jobs:
           if test -f ErdosMahlerAudit/Gate15Checks.lean; then
             lake env lean ErdosMahlerAudit/Gate15Checks.lean
           fi
+          if test -f ErdosMahlerAudit/Gate16Checks.lean; then
+            lake env lean ErdosMahlerAudit/Gate16Checks.lean
+          fi
 
       - name: Verify frozen manuscript copies
         shell: bash
