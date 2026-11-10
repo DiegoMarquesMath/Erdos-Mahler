@@ -46,7 +46,7 @@ The local Lean development covers the counting argument, the construction of a n
 
 `ErdosMahlerAudit.Gate16.erdos_mahler_main`.
 
-**The formal theorem is conditional.** Its two ordinary mathematical hypotheses are `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree`. These encode precise consequences of the Subspace Theorem and a weighted three-logarithm estimate; they have not been proved in Lean. The formal conclusion currently quantifies powers with nonnegative integer exponents. A positive-exponent strengthening, matching the manuscript literally, remains to be stated in the public Lean theorem.
+**The formal theorem is conditional.** Its two ordinary mathematical hypotheses are `Gate05.SubspaceTwoThreePrimitive` and `Gate08.MatveevRationalThree`. These are mathematically derived from the published theorems of Schlickewei and Matveev in [External theorems](docs/EXTERNAL_THEOREMS.md); the reductions are documented, not proved in Lean. The formal conclusion currently quantifies powers with nonnegative integer exponents. A positive-exponent strengthening, matching the manuscript literally, remains to be stated in the public Lean theorem.
 
 The 16 stages have passed the reported local Lean checks. The sources have **not yet been committed to this repository**, and an independent GitHub Actions build has **not yet been obtained**. A successful build will verify the conditional implication, not discharge its two hypotheses.
 
