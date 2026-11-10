@@ -1,36 +1,41 @@
-# Reproducing the Lean formalization
+# Reproducibility
 
-The current source code lives in a locally compiled Lean project until it is imported into this repository. The commands in this document become executable after `formalization/ErdosMahlerAudit/` has been populated.
+The project is developed with Lean 4 and mathlib at fixed revisions. This document concerns source reproduction; the logical scope of the resulting theorem is given in [Formalization status](../FORMALIZATION_STATUS.md).
 
-## Pinned development
+## Pinned versions
 
-The local audit reports specify Lean `leanprover/lean4:v4.36.0-rc2` and mathlib revision `9d581dfff2e41de989072ea63abf3daf69311520`. The repository will preserve the exact existing `lean-toolchain`, `lakefile.toml`, and `lake-manifest.json`; dependency updates must be isolated from proof changes.
+- Lean: `leanprover/lean4:v4.36.0-rc2`.
+- mathlib: `9d581dfff2e41de989072ea63abf3daf69311520`.
 
-## Build
+The source publication will include the original `lean-toolchain`, `lakefile.toml`, and `lake-manifest.json`. An update to these files requires a separate reproducibility review.
+
+## Independent build
+
+After the Lean source tree has been published:
 
 ```bash
 git clone https://github.com/DiegoMarquesMath/Erdos-Mahler.git
 cd Erdos-Mahler/formalization/ErdosMahlerAudit
-
 lake exe cache get
 lake build
-
-lake env lean ErdosMahlerAudit/Gate01Checks.lean
-lake env lean ErdosMahlerAudit/Gate02Checks.lean
-lake env lean ErdosMahlerAudit/Gate03Checks.lean
-lake env lean ErdosMahlerAudit/Gate11Checks.lean  # once Gate 11 sources are published
+for gate in {01..16}; do
+  lake env lean "ErdosMahlerAudit/Gate${gate}Checks.lean"
+done
 ```
 
-The checks files inspect the elaborated theorem statements and their axiom dependencies. The full theorem types must be read: an ordinary hypothesis does not appear as a kernel axiom.
+The [continuous-integration workflow](../.github/workflows/lean.yml) is configured to build with pinned dependencies, execute the gate checks, audit foundational axioms, and check the manuscript hashes. It has not yet run against the published source tree.
 
-## Reproducible source boundary
+The principal theorem is `ErdosMahlerAudit.Gate16.erdos_mahler_main`. The exact type must be inspected alongside `#print axioms`: its explicit Subspace-Theorem and Matveev propositions are ordinary premises, not kernel axioms.
 
-The Lean modules correspond to the version of `Erdos_Mahler.tex` and `Erdos_Mahler.pdf` whose SHA-256 hashes are recorded in [FORMALIZATION_STATUS.md](../FORMALIZATION_STATUS.md).
+## Frozen manuscript
 
-Proof obligations that are not yet discharged must remain as explicit theorem parameters or open tasks. In particular, a successful build of the current conditional successor theorem does not discharge its explicit Subspace Theorem and Matveev hypotheses or establish the final Cantor-set theorem.
+The local source bundle records the following SHA-256 digests:
 
-## Continuous integration
+```text
+Erdos_Mahler.tex  5a55f32babc285ed9ad05fcb3bd6f8fe2bd3080d9eca7fd11e79ba23f7307116
+Erdos_Mahler.pdf  9d9558f33236b6c1d7b276876153bf3d87f6fac2019c6e39db4d988e5022927f
+```
 
-The [Lean workflow](../.github/workflows/lean.yml) will run on source-tree changes. It checks the pinned project, compiles all imported proof modules, executes the available gate checks through Gate 11, audits foundational axioms, and verifies the frozen manuscript identity.
+These identify the manuscript copies to which the formalization refers. Their verification is a source-integrity check, not an independent assessment of the mathematical proof.
 
-A passing workflow establishes that its **committed source files** build with the pinned dependencies. Claims of complete formalization additionally require that the displayed mathematical statements match the manuscript and that no essential unproved hypothesis remains.
+A passing CI run will establish reproducibility of a **conditional** formal result for a particular Git revision. Unconditional certification additionally requires proof or independent justification of the two exact external contracts.
