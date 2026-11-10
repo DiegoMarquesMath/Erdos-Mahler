@@ -38,4 +38,4 @@ Erdos_Mahler.pdf  9d9558f33236b6c1d7b276876153bf3d87f6fac2019c6e39db4d988e502292
 
 These identify the manuscript copies to which the formalization refers. Their verification is a source-integrity check, not an independent assessment of the mathematical proof.
 
-A passing CI run will establish reproducibility of a **conditional** formal result for a particular Git revision. Unconditional certification additionally requires proof or independent justification of the two exact external contracts.
+A passing CI run will establish reproducibility of a **conditional** formal result for a particular Git revision. The two exact external contracts are mathematically reduced to the published results of Schlickewei and Matveev in [External theorems](EXTERNAL_THEOREMS.md); they remain ordinary unproved Lean premises. A fully kernel-closed theorem would also require their formal proofs.
