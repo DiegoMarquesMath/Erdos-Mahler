@@ -7,11 +7,11 @@ The project is developed with Lean 4 and mathlib at fixed revisions. This docume
 - Lean: `leanprover/lean4:v4.36.0-rc2`.
 - mathlib: `9d581dfff2e41de989072ea63abf3daf69311520`.
 
-The source publication will include the original `lean-toolchain`, `lakefile.toml`, and `lake-manifest.json`. An update to these files requires a separate reproducibility review.
+The published source tree contains the original `lean-toolchain`, `lakefile.toml`, and `lake-manifest.json`. An update to these files requires a separate reproducibility review.
 
 ## Independent build
 
-After the Lean source tree has been published:
+To reproduce the published development:
 
 ```bash
 git clone https://github.com/DiegoMarquesMath/Erdos-Mahler.git
@@ -23,7 +23,7 @@ for gate in {01..16}; do
 done
 ```
 
-The [continuous-integration workflow](../.github/workflows/lean.yml) is configured to build with pinned dependencies, execute the gate checks, audit foundational axioms, and check the manuscript hashes. It has not yet run against the published source tree.
+The [continuous-integration workflow](../.github/workflows/lean.yml) is configured to build with pinned dependencies, execute the gate checks, audit foundational axioms, and check the manuscript hashes. It passed for the published source tree at commit [`cb25517`](https://github.com/DiegoMarquesMath/Erdos-Mahler/commit/cb2551739d9e7d3e12ff0d16b8f3e182929f66bf): [successful run](https://github.com/DiegoMarquesMath/Erdos-Mahler/actions/runs/42761925776).
 
 The principal theorem is `ErdosMahlerAudit.Gate16.erdos_mahler_main`. The exact type must be inspected alongside `#print axioms`: its explicit Subspace-Theorem and Matveev propositions are ordinary premises, not kernel axioms.
 
@@ -38,4 +38,4 @@ Erdos_Mahler.pdf  9d9558f33236b6c1d7b276876153bf3d87f6fac2019c6e39db4d988e502292
 
 These identify the manuscript copies to which the formalization refers. Their verification is a source-integrity check, not an independent assessment of the mathematical proof.
 
-A passing CI run will establish reproducibility of a **conditional** formal result for a particular Git revision. The two exact external contracts are mathematically reduced to the published results of Schlickewei and Matveev in [External theorems](EXTERNAL_THEOREMS.md); they remain ordinary unproved Lean premises. A fully kernel-closed theorem would also require their formal proofs.
+The successful CI run establishes reproducibility of the formally stated implication for the specified Git revision. The two exact external contracts are mathematically reduced to the published results of Schlickewei and Matveev in [External theorems](EXTERNAL_THEOREMS.md); they remain ordinary unproved Lean premises. A fully kernel-closed theorem would also require their formal proofs.
